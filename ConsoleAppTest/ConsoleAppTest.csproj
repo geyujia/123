@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Attribute\Author.cs" />
     <Compile Include="Attribute\TableNameAttribute.cs" />
+    <Compile Include="Common\ICache.cs" />
     <Compile Include="HashFunc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,7 +53,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="ExtendMethods\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
