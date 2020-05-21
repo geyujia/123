@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ namespace ConsoleAppTest
     {
         static void Main(string[] args)
         {
-            
+            string currTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Trace.Listeners.Add(new TextWriterTraceListener("Log" + currTime + ".log", "myListener"));
+            Trace.TraceInformation("start: " + DateTime.Now);
+            Trace.TraceInformation("SQL: " + 1111111111111);
             DateTime date = new DateTime();
             Console.WriteLine(date.ToLongDateString());
             //01
@@ -23,16 +27,29 @@ namespace ConsoleAppTest
                 Console.WriteLine(businessobject);
             }
             //03
+            //2021/1/31 0:00:00	2021/4/30 0:00:00
+            int DiffMonth;
             decimal amount = 1400.864M;
             decimal MonthDays = 30.416666667m;
-            decimal MonthlyRent = Math.Round(amount * MonthDays, 0);
+            decimal MonthlyRent = Math.Round(amount, 0);
+
+            DateTime dtstart =Convert.ToDateTime("2021/1/31 0:00:00");
+            DateTime dtend = Convert.ToDateTime("2021/4/30 0:00:00");
+            DiffMonth = (dtend.Year - dtstart.Year) * 12 + (dtend.Month - dtstart.Month);
+            int RemainDays = (dtend - dtstart.AddMonths(DiffMonth).AddDays(-1)).Days;
+            Console.WriteLine("RemainDays:" + RemainDays);
+            Console.WriteLine("DiffMonth:" + DiffMonth);
             Console.WriteLine("MonthlyRent:"+ MonthlyRent);//42609.61333M;
             //04 自定义Attribute Test
             string result = GetTableName<Media>();
             Console.WriteLine(result);
             TestAuthorAttribute.Test();
-            
-           Console.ReadKey();
+            //public delegate string Reverse(string s);
+            //委托
+
+            Trace.TraceInformation("end: " + DateTime.Now);
+            Trace.Flush();
+            Console.ReadKey();
         }
         /// <summary>
         /// 01、竞优密码加密
